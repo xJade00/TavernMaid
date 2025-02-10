@@ -43,3 +43,4 @@ generated/
 
 # Ignore dependency lock files (optional)
 gradle.lockfile
+/config/
