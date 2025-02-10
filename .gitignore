@@ -1,0 +1,45 @@
+# Ignore the IntelliJ IDEA project files
+.idea/
+*.iml
+*.iws
+
+# Ignore target and build output directories
+target/
+out/
+build/
+
+# Ignore dependency caches and logs
+.gradle/
+mvnw
+mvnw.cmd
+!gradle/wrapper/gradle-wrapper.jar
+.gradle/
+.gradle-cache/
+logs/
+*.log
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore compiled files
+*.class
+*.jar
+*.war
+*.ear
+
+# Ignore local environment files
+.env
+*.key
+*.pem
+
+# Ignore temporary files
+*.tmp
+*.swp
+*.swo
+
+# Ignore generated files from JDA (if any)
+generated/
+
+# Ignore dependency lock files (optional)
+gradle.lockfile
