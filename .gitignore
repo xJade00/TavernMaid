@@ -13,7 +13,6 @@ build/
 mvnw
 mvnw.cmd
 !gradle/wrapper/gradle-wrapper.jar
-.gradle/
 .gradle-cache/
 logs/
 *.log
