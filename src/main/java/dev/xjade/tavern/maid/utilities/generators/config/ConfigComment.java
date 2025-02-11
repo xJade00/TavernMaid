@@ -1,4 +1,4 @@
-package dev.xjade.tavern.maid.config.generator;
+package dev.xjade.tavern.maid.utilities.generators.config;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
