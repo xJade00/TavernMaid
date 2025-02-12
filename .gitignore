@@ -37,8 +37,6 @@ Thumbs.db
 *.swp
 *.swo
 
-# Ignore generated files from JDA (if any)
-generated/
 
 # Ignore dependency lock files (optional)
 gradle.lockfile

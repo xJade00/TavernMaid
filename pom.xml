@@ -75,13 +75,11 @@
         </dependency>
 
         <!-- Database (4) -->
-        <!-- jOOQ API (Open Source Version) -->
         <dependency>
             <groupId>org.jooq</groupId>
             <artifactId>jooq</artifactId>
             <version>3.18.6</version>
         </dependency>
-        <!-- jOOQ PostgreSQL Database Dialect -->
         <dependency>
             <groupId>org.jooq</groupId>
             <artifactId>jooq-meta</artifactId>
@@ -92,11 +90,17 @@
             <artifactId>jooq-codegen</artifactId>
             <version>3.18.6</version>
         </dependency>
-        <!-- PostgreSQL JDBC Driver -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>42.7.2</version>
+        </dependency>
+
+        <!-- Database Updating (1) -->
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>4.23.2</version>
         </dependency>
     </dependencies>
 
@@ -139,7 +143,17 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <configurationFile>target/generated-jooq-config.xml</configurationFile>
+                    <configurationFile>config/generated-jooq-config.xml</configurationFile>
+                </configuration>
+            </plugin>
+
+            <!-- Database Updater (1) -->
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>4.23.2</version>
+                <configuration>
+                    <propertyFile>config/generated-liquibase.properties</propertyFile>
                 </configuration>
             </plugin>
         </plugins>

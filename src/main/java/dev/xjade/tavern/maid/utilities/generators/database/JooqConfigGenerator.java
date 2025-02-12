@@ -1,4 +1,4 @@
-package dev.xjade.tavern.maid.utilities.generators;
+package dev.xjade.tavern.maid.utilities.generators.database;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
@@ -39,7 +39,7 @@ public class JooqConfigGenerator {
         );
 
         // Write the generated config to a file
-        Files.write(Paths.get("target/generated-jooq-config.xml"), xmlConfig.getBytes());
-        System.out.println("✅ jOOQ config generated: target/generated-jooq-config.xml\n" + Paths.get("target/generated-jooq-config.xml").toFile().getAbsolutePath());
+        Files.write(Paths.get("config/generated-jooq-config.xml"), xmlConfig.getBytes());
+        System.out.println("jOOQ config generated: config/generated-jooq-config.xml");
     }
 }
