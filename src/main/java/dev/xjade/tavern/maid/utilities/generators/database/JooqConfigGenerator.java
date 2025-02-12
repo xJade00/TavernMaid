@@ -2,17 +2,18 @@ package dev.xjade.tavern.maid.utilities.generators.database;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.io.IOException;
 
 public class JooqConfigGenerator {
-    public static void main(String[] args) throws IOException {
-        // Load HOCON file from /config/DatabaseConfig.conf
-        Config config = ConfigFactory.parseFile(Paths.get("./config/DatabaseConfig.conf").toFile());
+  public static void main(String[] args) throws IOException {
+    // Load HOCON file from /config/DatabaseConfig.conf
+    Config config = ConfigFactory.parseFile(Paths.get("./config/DatabaseConfig.conf").toFile());
 
-        // Generate XML content using values from HOCON
-        String xmlConfig = """
+    // Generate XML content using values from HOCON
+    String xmlConfig =
+        """
         <configuration>
             <jdbc>
                 <driver>org.postgresql.Driver</driver>
@@ -32,14 +33,14 @@ public class JooqConfigGenerator {
                 </target>
             </generator>
         </configuration>
-        """.formatted(
+        """
+            .formatted(
                 config.getString("url"),
                 config.getString("username"),
-                config.getString("password")
-        );
+                config.getString("password"));
 
-        // Write the generated config to a file
-        Files.write(Paths.get("config/generated-jooq-config.xml"), xmlConfig.getBytes());
-        System.out.println("jOOQ config generated: config/generated-jooq-config.xml");
-    }
+    // Write the generated config to a file
+    Files.write(Paths.get("config/generated-jooq-config.xml"), xmlConfig.getBytes());
+    System.out.println("jOOQ config generated: config/generated-jooq-config.xml");
+  }
 }

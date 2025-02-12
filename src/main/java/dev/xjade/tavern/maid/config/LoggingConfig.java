@@ -1,7 +1,7 @@
 package dev.xjade.tavern.maid.config;
 
-import dev.xjade.tavern.maid.utilities.generators.config.ConfigComment;
 import dev.xjade.tavern.maid.logging.Level;
+import dev.xjade.tavern.maid.utilities.generators.config.ConfigComment;
 
 /** Logging information. See below for parameter comments. */
 public record LoggingConfig(
