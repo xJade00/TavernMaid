@@ -2,7 +2,6 @@ package dev.xjade.tavern.maid.injection;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
-import dev.xjade.tavern.Bot;
 import dev.xjade.tavern.maid.config.BotConfig;
 import dev.xjade.tavern.maid.config.DatabaseConfig;
 import dev.xjade.tavern.maid.config.LoggingConfig;
