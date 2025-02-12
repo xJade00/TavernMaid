@@ -104,8 +104,6 @@
         </dependency>
     </dependencies>
 
-
-
     <build>
         <plugins>
             <!-- Auto Formatter (1) -->
