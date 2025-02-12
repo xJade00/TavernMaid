@@ -3,32 +3,40 @@
  */
 package dev.xjade.tavern.generated.jooq;
 
-
 import dev.xjade.tavern.generated.jooq.tables.ConfigOverrides;
 import dev.xjade.tavern.generated.jooq.tables.Databasechangeloglock;
 import dev.xjade.tavern.generated.jooq.tables.Logging;
 import dev.xjade.tavern.generated.jooq.tables.records.ConfigOverridesRecord;
 import dev.xjade.tavern.generated.jooq.tables.records.DatabasechangeloglockRecord;
 import dev.xjade.tavern.generated.jooq.tables.records.LoggingRecord;
-
 import org.jooq.TableField;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.Internal;
 
-
-/**
- * A class modelling foreign key relationships and constraints of tables in
- * public.
- */
-@SuppressWarnings({ "all", "unchecked", "rawtypes" })
+/** A class modelling foreign key relationships and constraints of tables in public. */
+@SuppressWarnings({"all", "unchecked", "rawtypes"})
 public class Keys {
 
-    // -------------------------------------------------------------------------
-    // UNIQUE and PRIMARY KEY definitions
-    // -------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
+  // UNIQUE and PRIMARY KEY definitions
+  // -------------------------------------------------------------------------
 
-    public static final UniqueKey<ConfigOverridesRecord> CONFIG_OVERRIDES_PKEY = Internal.createUniqueKey(ConfigOverrides.CONFIG_OVERRIDES, DSL.name("config_overrides_pkey"), new TableField[] { ConfigOverrides.CONFIG_OVERRIDES.SERVER, ConfigOverrides.CONFIG_OVERRIDES.KEY }, true);
-    public static final UniqueKey<DatabasechangeloglockRecord> DATABASECHANGELOGLOCK_PKEY = Internal.createUniqueKey(Databasechangeloglock.DATABASECHANGELOGLOCK, DSL.name("databasechangeloglock_pkey"), new TableField[] { Databasechangeloglock.DATABASECHANGELOGLOCK.ID }, true);
-    public static final UniqueKey<LoggingRecord> LOGGING_PKEY = Internal.createUniqueKey(Logging.LOGGING, DSL.name("logging_pkey"), new TableField[] { Logging.LOGGING.ID }, true);
+  public static final UniqueKey<ConfigOverridesRecord> CONFIG_OVERRIDES_PKEY =
+      Internal.createUniqueKey(
+          ConfigOverrides.CONFIG_OVERRIDES,
+          DSL.name("config_overrides_pkey"),
+          new TableField[] {
+            ConfigOverrides.CONFIG_OVERRIDES.SERVER, ConfigOverrides.CONFIG_OVERRIDES.KEY
+          },
+          true);
+  public static final UniqueKey<DatabasechangeloglockRecord> DATABASECHANGELOGLOCK_PKEY =
+      Internal.createUniqueKey(
+          Databasechangeloglock.DATABASECHANGELOGLOCK,
+          DSL.name("databasechangeloglock_pkey"),
+          new TableField[] {Databasechangeloglock.DATABASECHANGELOGLOCK.ID},
+          true);
+  public static final UniqueKey<LoggingRecord> LOGGING_PKEY =
+      Internal.createUniqueKey(
+          Logging.LOGGING, DSL.name("logging_pkey"), new TableField[] {Logging.LOGGING.ID}, true);
 }

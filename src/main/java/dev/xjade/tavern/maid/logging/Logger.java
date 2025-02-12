@@ -1,11 +1,6 @@
 package dev.xjade.tavern.maid.logging;
 
-public class
-Logger
+public class Logger {
 
-                    {
-  private
-  Level
-
-          current;
+  private Level current;
 }
