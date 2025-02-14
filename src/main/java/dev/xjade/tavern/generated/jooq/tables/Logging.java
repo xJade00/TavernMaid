@@ -10,12 +10,13 @@ import java.time.LocalDateTime;
 import java.util.function.Function;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function5;
+import org.jooq.Function6;
+import org.jooq.Identity;
 import org.jooq.JSONB;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row5;
+import org.jooq.Row6;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -43,7 +44,7 @@ public class Logging extends TableImpl<LoggingRecord> {
 
   /** The column <code>public.logging.id</code>. */
   public final TableField<LoggingRecord, Long> ID =
-      createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false), this, "");
+      createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
   /** The column <code>public.logging.category</code>. */
   public final TableField<LoggingRecord, String> CATEGORY =
@@ -66,6 +67,10 @@ public class Logging extends TableImpl<LoggingRecord> {
               .defaultValue(DSL.field(DSL.raw("now()"), SQLDataType.LOCALDATETIME)),
           this,
           "");
+
+  /** The column <code>public.logging.server</code>. */
+  public final TableField<LoggingRecord, Long> SERVER =
+      createField(DSL.name("server"), SQLDataType.BIGINT, this, "");
 
   private Logging(Name alias, Table<LoggingRecord> aliased) {
     this(alias, aliased, null);
@@ -97,6 +102,11 @@ public class Logging extends TableImpl<LoggingRecord> {
   @Override
   public Schema getSchema() {
     return aliased() ? null : Public.PUBLIC;
+  }
+
+  @Override
+  public Identity<LoggingRecord, Long> getIdentity() {
+    return (Identity<LoggingRecord, Long>) super.getIdentity();
   }
 
   @Override
@@ -138,22 +148,23 @@ public class Logging extends TableImpl<LoggingRecord> {
   }
 
   // -------------------------------------------------------------------------
-  // Row5 type methods
+  // Row6 type methods
   // -------------------------------------------------------------------------
 
   @Override
-  public Row5<Long, String, JSONB, String, LocalDateTime> fieldsRow() {
-    return (Row5) super.fieldsRow();
+  public Row6<Long, String, JSONB, String, LocalDateTime, Long> fieldsRow() {
+    return (Row6) super.fieldsRow();
   }
 
   /** Convenience mapping calling {@link SelectField#convertFrom(Function)}. */
   public <U> SelectField<U> mapping(
-      Function5<
+      Function6<
               ? super Long,
               ? super String,
               ? super JSONB,
               ? super String,
               ? super LocalDateTime,
+              ? super Long,
               ? extends U>
           from) {
     return convertFrom(Records.mapping(from));
@@ -162,12 +173,13 @@ public class Logging extends TableImpl<LoggingRecord> {
   /** Convenience mapping calling {@link SelectField#convertFrom(Class, Function)}. */
   public <U> SelectField<U> mapping(
       Class<U> toType,
-      Function5<
+      Function6<
               ? super Long,
               ? super String,
               ? super JSONB,
               ? super String,
               ? super LocalDateTime,
+              ? super Long,
               ? extends U>
           from) {
     return convertFrom(toType, Records.mapping(from));

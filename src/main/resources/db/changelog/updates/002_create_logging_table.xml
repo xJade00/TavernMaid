@@ -6,7 +6,7 @@
 
     <changeSet id="2" author="Jade">
         <createTable tableName="logging">
-            <column name="id" type="BIGINT">
+            <column name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="category" type="TEXT">

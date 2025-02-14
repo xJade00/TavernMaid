@@ -1,5 +1,6 @@
 package dev.xjade.tavern.maid.injection;
 
+import com.google.gson.Gson;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import dev.xjade.tavern.maid.config.BotConfig;
@@ -11,7 +12,7 @@ import java.io.File;
 
 /** Providers. Will split if need be. */
 @ApplicationScoped
-public class Providers {
+public class GenericProviders {
 
   private Config loadConfig(String name) {
     File config = new File(String.format("./config/%s.conf", name));
@@ -39,5 +40,10 @@ public class Providers {
   public LoggingConfig loadLoggingConfig() {
     Config config = loadConfig("LoggingConfig");
     return new LoggingConfig(config.getString("defaultLevel"));
+  }
+
+  @Produces
+  public Gson loadGson() {
+    return new Gson();
   }
 }

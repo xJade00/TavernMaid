@@ -9,6 +9,8 @@ public class Main {
     try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
       Bot bot = container.select(Bot.class).get();
       bot.start();
+
+      bot.getJda().awaitShutdown();
     }
   }
 }
