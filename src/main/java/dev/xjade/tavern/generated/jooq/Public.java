@@ -6,6 +6,7 @@ package dev.xjade.tavern.generated.jooq;
 import dev.xjade.tavern.generated.jooq.tables.ConfigOverrides;
 import dev.xjade.tavern.generated.jooq.tables.Databasechangelog;
 import dev.xjade.tavern.generated.jooq.tables.Databasechangeloglock;
+import dev.xjade.tavern.generated.jooq.tables.Debug;
 import dev.xjade.tavern.generated.jooq.tables.Logging;
 import java.util.Arrays;
 import java.util.List;
@@ -32,6 +33,9 @@ public class Public extends SchemaImpl {
   public final Databasechangeloglock DATABASECHANGELOGLOCK =
       Databasechangeloglock.DATABASECHANGELOGLOCK;
 
+  /** The table <code>public.debug</code>. */
+  public final Debug DEBUG = Debug.DEBUG;
+
   /** The table <code>public.logging</code>. */
   public final Logging LOGGING = Logging.LOGGING;
 
@@ -51,6 +55,7 @@ public class Public extends SchemaImpl {
         ConfigOverrides.CONFIG_OVERRIDES,
         Databasechangelog.DATABASECHANGELOG,
         Databasechangeloglock.DATABASECHANGELOGLOCK,
+        Debug.DEBUG,
         Logging.LOGGING);
   }
 }

@@ -4,6 +4,7 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import com.typesafe.config.ConfigValueFactory;
 import dev.xjade.tavern.maid.config.BotConfig;
+import dev.xjade.tavern.maid.utilities.generators.Generator;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.lang.reflect.RecordComponent;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Generator
 // Made with the help of AI. Cause it's complicated and not worth the time for what it does.
 public class ConfigGenerator {
   private static final String OUTPUT_DIR = "./example_configs/";

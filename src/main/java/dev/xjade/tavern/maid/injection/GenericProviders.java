@@ -26,7 +26,10 @@ public class GenericProviders {
   public BotConfig loadBotConfig() {
     Config config = loadConfig("BotConfig");
     return new BotConfig(
-        config.getString("token"), config.getLongList("owners"), config.getLong("server"));
+        config.getString("token"),
+        config.getLongList("owners"),
+        config.getLong("devServer"),
+        config.getLong("dev"));
   }
 
   @Produces
@@ -39,7 +42,8 @@ public class GenericProviders {
   @Produces
   public LoggingConfig loadLoggingConfig() {
     Config config = loadConfig("LoggingConfig");
-    return new LoggingConfig(config.getString("defaultLevel"));
+    return new LoggingConfig(
+        config.getString("defaultLevel"), config.getLong("errorCriticalChannel"));
   }
 
   @Produces

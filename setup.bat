@@ -1,6 +1,9 @@
 @echo off
 setlocal
 
+
+call mvn clean
+
 echo Running Spotless formatter...
 call mvn spotless:apply
 if %errorlevel% neq 0 (
@@ -21,6 +24,8 @@ if %errorlevel% neq 0 (
     echo Jooq code generation failed!
     exit /b %errorlevel%
 )
+
+call mvn clean compile
 
 echo Setup complete!
 exit /b 0

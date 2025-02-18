@@ -5,9 +5,11 @@ package dev.xjade.tavern.generated.jooq;
 
 import dev.xjade.tavern.generated.jooq.tables.ConfigOverrides;
 import dev.xjade.tavern.generated.jooq.tables.Databasechangeloglock;
+import dev.xjade.tavern.generated.jooq.tables.Debug;
 import dev.xjade.tavern.generated.jooq.tables.Logging;
 import dev.xjade.tavern.generated.jooq.tables.records.ConfigOverridesRecord;
 import dev.xjade.tavern.generated.jooq.tables.records.DatabasechangeloglockRecord;
+import dev.xjade.tavern.generated.jooq.tables.records.DebugRecord;
 import dev.xjade.tavern.generated.jooq.tables.records.LoggingRecord;
 import org.jooq.TableField;
 import org.jooq.UniqueKey;
@@ -36,6 +38,9 @@ public class Keys {
           DSL.name("databasechangeloglock_pkey"),
           new TableField[] {Databasechangeloglock.DATABASECHANGELOGLOCK.ID},
           true);
+  public static final UniqueKey<DebugRecord> DEBUG_PKEY =
+      Internal.createUniqueKey(
+          Debug.DEBUG, DSL.name("debug_pkey"), new TableField[] {Debug.DEBUG.ID}, true);
   public static final UniqueKey<LoggingRecord> LOGGING_PKEY =
       Internal.createUniqueKey(
           Logging.LOGGING, DSL.name("logging_pkey"), new TableField[] {Logging.LOGGING.ID}, true);

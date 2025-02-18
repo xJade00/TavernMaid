@@ -1,23 +1,25 @@
 package dev.xjade.tavern.maid.logging;
 
-import static dev.xjade.tavern.generated.jooq.Tables.CONFIG_OVERRIDES;
-import static dev.xjade.tavern.generated.jooq.Tables.LOGGING;
+import static dev.xjade.tavern.generated.jooq.Tables.*;
 
-import dev.xjade.tavern.Bot;
 import dev.xjade.tavern.generated.jooq.tables.records.ConfigOverridesRecord;
+import dev.xjade.tavern.maid.Bot;
 import dev.xjade.tavern.maid.config.BotConfig;
 import dev.xjade.tavern.maid.config.LoggingConfig;
 import dev.xjade.tavern.maid.database.ConfigOverrideKeys;
 import dev.xjade.tavern.maid.database.JsonbConverter;
 import dev.xjade.tavern.maid.database.models.LoggingChannelsModel;
 import dev.xjade.tavern.maid.database.models.OverrideLoggingLevelModel;
+import dev.xjade.tavern.maid.utilities.DebugEncoder;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.channel.ChannelType;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import org.jooq.DSLContext;
 
@@ -60,13 +62,47 @@ public class Logger {
         .orElse(List.of());
   }
 
-  public void log(
+  /**
+   * Gets the error/critical channel for logging.
+   *
+   * @return The dev server logging channel.
+   */
+  private TextChannel getCriticalErrorChannel() {
+    Guild guild = bot.getJda().getGuildById(botConfig.devServer());
+    return guild.getTextChannelById(loggingConfig.errorCriticalChannel());
+  }
+
+  public void debug(String description, long server, Object... formats) {
+    String formatted = String.format(description, formats);
+    dsl.insertInto(DEBUG)
+        .set(DEBUG.DESCRIPTION_COMPRESSED, DebugEncoder.compressZstd(formatted))
+        .set(DEBUG.SERVER, server)
+        .set(DEBUG.TIME, LocalDateTime.now())
+        .execute();
+  }
+
+  public void info(LoggingCategory category, LoggingEntry entry, long server) {
+    log(Level.INFO, category.getDescription(), category, entry, server);
+  }
+
+  public void error(LoggingCategory category, LoggingEntry entry, long server) {
+    log(Level.ERROR, category.getDescription(), category, entry, server);
+  }
+
+  public void critical(LoggingCategory category, LoggingEntry entry, long server) {
+    log(Level.CRITICAL, category.getDescription(), category, entry, server);
+  }
+
+  private void log(
       Level requested,
       String description,
       LoggingCategory category,
       LoggingEntry entry,
       long server) {
-    System.out.println("Trying to log");
+    if (requested == Level.DEBUG) {
+      debug(description, server);
+      return;
+    }
     Level current = getLevel(server);
     dsl.insertInto(LOGGING)
         .set(LOGGING.CATEGORY, category.name())
@@ -75,24 +111,36 @@ public class Logger {
         .set(LOGGING.SERVER, server)
         .execute();
 
-    // We want to log it in the DB, but not in discord
-    if (!current.canLog(requested)) {
-      System.out.println("Can't log. Current is " + current + " and requested is " + requested);
-      return;
-    }
-
     List<MessageChannel> channels = getChannel(server);
 
     EmbedBuilder builder = new EmbedBuilder();
-    builder.setAuthor(entry.author(), entry.authorUrl());
+    builder.setFooter(requested.name());
+    builder.setAuthor(entry.author(), null, entry.authorUrl());
     builder.setTitle(category.getFriendly());
     StringBuilder embedDescription =
-        new StringBuilder(description + "\nFound the following formation about this action:\n\n");
+        new StringBuilder(
+            description + "\n\nFound the following information about this action:\n\n");
     for (Map.Entry<String, String> e : entry.variables().entrySet()) {
       embedDescription.append(e.getKey()).append(": **").append(e.getValue()).append("**\n");
     }
     builder.setDescription(embedDescription.toString());
     builder.setTimestamp(LocalDateTime.now());
+    if (requested == Level.CRITICAL) {
+      // Red
+      builder.setColor(16711680);
+    } else {
+      // #249999
+      builder.setColor(2398617);
+    }
+
+    if (requested == Level.CRITICAL || requested == Level.ERROR) {
+      getCriticalErrorChannel().sendMessageEmbeds(builder.build()).queue();
+    }
+
+    if (!current.canLog(requested)) {
+      System.out.println("Can't log. Current is " + current + " requested is " + requested);
+      return;
+    }
 
     for (MessageChannel channel : channels) {
       channel.sendMessageEmbeds(builder.build()).queue();

@@ -1,6 +1,5 @@
 package dev.xjade.tavern.maid;
 
-import dev.xjade.tavern.Bot;
 import jakarta.enterprise.inject.se.SeContainer;
 import jakarta.enterprise.inject.se.SeContainerInitializer;
 

@@ -6,6 +6,7 @@ package dev.xjade.tavern.generated.jooq;
 import dev.xjade.tavern.generated.jooq.tables.ConfigOverrides;
 import dev.xjade.tavern.generated.jooq.tables.Databasechangelog;
 import dev.xjade.tavern.generated.jooq.tables.Databasechangeloglock;
+import dev.xjade.tavern.generated.jooq.tables.Debug;
 import dev.xjade.tavern.generated.jooq.tables.Logging;
 
 /** Convenience access to all tables in public. */
@@ -21,6 +22,9 @@ public class Tables {
   /** The table <code>public.databasechangeloglock</code>. */
   public static final Databasechangeloglock DATABASECHANGELOGLOCK =
       Databasechangeloglock.DATABASECHANGELOGLOCK;
+
+  /** The table <code>public.debug</code>. */
+  public static final Debug DEBUG = Debug.DEBUG;
 
   /** The table <code>public.logging</code>. */
   public static final Logging LOGGING = Logging.LOGGING;

@@ -2,10 +2,12 @@ package dev.xjade.tavern.maid.utilities.generators.database;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
+import dev.xjade.tavern.maid.utilities.generators.Generator;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+@Generator
 public class JooqConfigGenerator {
   public static void main(String[] args) throws IOException {
     // Load HOCON file from /config/DatabaseConfig.conf
