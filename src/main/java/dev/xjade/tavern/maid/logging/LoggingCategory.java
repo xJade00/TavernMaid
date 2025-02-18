@@ -3,7 +3,7 @@ package dev.xjade.tavern.maid.logging;
 public enum LoggingCategory {
   NORMAL_ERROR("Error Occurred", "A generic error has occurred"),
   CRITICAL_ERROR("Critical Error Occurred", "A critical unexpected error has occurred"),
-  WHITELIST("Whitelist", "A user has been whitelisted to use the bot in this server.");
+  WHITELIST("Whitelist", "The whitelist has been changed.");
 
   private final String friendly;
   private final String description;

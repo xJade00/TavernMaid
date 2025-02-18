@@ -31,7 +31,9 @@ public class ContextManager extends ListenerAdapter {
     for (CommandDiscovery discovery : this.discoveries) {
       if (discovery.instance() instanceof UserContext context) {
         try {
-          context.handle(event, event.deferReply());
+          if (discovery.info().name().equals(event.getName())) {
+            context.handle(event, event.deferReply());
+          }
         } catch (Exception ex) {
           logger.error(
               LoggingCategory.CRITICAL_ERROR,

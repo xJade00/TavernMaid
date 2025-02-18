@@ -4,13 +4,6 @@ setlocal
 
 call mvn clean
 
-echo Running Spotless formatter...
-call mvn spotless:apply
-if %errorlevel% neq 0 (
-    echo Spotless formatting failed!
-    exit /b %errorlevel%
-)
-
 echo Running Liquibase database migrations...
 call mvn liquibase:update
 if %errorlevel% neq 0 (
@@ -25,7 +18,11 @@ if %errorlevel% neq 0 (
     exit /b %errorlevel%
 )
 
-call mvn clean compile
-
+echo Running Spotless formatter...
+call mvn spotless:apply
+if %errorlevel% neq 0 (
+    echo Spotless formatting failed!
+    exit /b %errorlevel%
+)
 echo Setup complete!
 exit /b 0

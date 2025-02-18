@@ -13,6 +13,7 @@ import dev.xjade.tavern.maid.database.models.OverrideLoggingLevelModel;
 import dev.xjade.tavern.maid.utilities.DebugEncoder;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -107,6 +108,7 @@ public class Logger {
     dsl.insertInto(LOGGING)
         .set(LOGGING.CATEGORY, category.name())
         .set(LOGGING.DESCRIPTION, description)
+        .set(LOGGING.TIME, LocalDateTime.now())
         .set(LOGGING.VARIABLES, JsonbConverter.objectToJsonb(entry))
         .set(LOGGING.SERVER, server)
         .execute();
@@ -124,7 +126,7 @@ public class Logger {
       embedDescription.append(e.getKey()).append(": **").append(e.getValue()).append("**\n");
     }
     builder.setDescription(embedDescription.toString());
-    builder.setTimestamp(LocalDateTime.now());
+    builder.setTimestamp(Instant.now());
     if (requested == Level.CRITICAL) {
       // Red
       builder.setColor(16711680);

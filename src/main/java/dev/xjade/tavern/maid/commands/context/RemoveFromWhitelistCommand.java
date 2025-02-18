@@ -22,9 +22,9 @@ import net.dv8tion.jda.api.requests.restaction.interactions.ReplyCallbackAction;
 @CommandInfo(
     type = Command.Type.USER,
     permission = Permission.OWNER,
-    name = "Whitelist User to Bot",
-    description = "Whitelists a user to use the bot that is outside of the normal role.")
-public class WhitelistCommand implements UserContext {
+    name = "Remove user from bot whitelist",
+    description = "Removes a user from the whitelist.")
+public class RemoveFromWhitelistCommand implements UserContext {
 
   private CommandContext ctx;
 
@@ -33,12 +33,16 @@ public class WhitelistCommand implements UserContext {
     final long guildId = event.getGuild().getIdLong();
     ctx.logger()
         .debug(
-            "WhitelistCommand used to whitelist %s. Executed by %s.",
+            "RemoveFromWhitelistCommand used to de-whitelist %s. Executed by %s.",
             guildId, event.getTarget().getIdLong(), event.getUser().getIdLong());
 
     if (ctx.botConfig().owners().contains(event.getUser().getIdLong())) {
-      ctx.logger().debug("WhitelistCommand tried to whitelist a hardcoded owner.", guildId);
-      reply.setContent("You can not whitelist a hard-coded owner.").setEphemeral(true).queue();
+      ctx.logger()
+          .debug("RemoveFromWhitelistCommand tried to de-whitelist a hardcoded owner.", guildId);
+      reply
+          .setContent("You can not remove access from a hard-coded owner.")
+          .setEphemeral(true)
+          .queue();
       return;
     }
 
@@ -55,22 +59,18 @@ public class WhitelistCommand implements UserContext {
             .map(WhitelistModel::ids)
             .orElse(new HashSet<>());
 
-    if (ids.contains(event.getTarget().getIdLong())) {
+    if (!ids.contains(event.getTarget().getIdLong())) {
       ctx.logger()
           .debug(
-              "WhitelistCommand tried to whitelist someone who is already whitelisted.", guildId);
-      reply.setContent("That person is already whitelisted!").setEphemeral(true).queue();
+              "RemoveFromWhitelistCommand tried to de-whitelist someone who is not whitelisted.",
+              guildId);
+      reply.setContent("That person is not whitelisted!.").setEphemeral(true).queue();
       return;
     }
 
-    if (event.getTarget().isBot()) {
-      ctx.logger().debug("WhitelistCommand tried to whitelist a bot.", guildId);
-      reply.setContent("You can't whitelist a bot!").setEphemeral(true).queue();
-    }
-
-    ids.add(event.getTarget().getIdLong());
+    ids.remove(event.getTarget().getIdLong());
     reply
-        .setContent("Whitelisted " + event.getTarget().getEffectiveName() + ".")
+        .setContent("Removed " + event.getTarget().getEffectiveName() + " from the whitelist.")
         .setEphemeral(true)
         .queue();
 
@@ -89,7 +89,7 @@ public class WhitelistCommand implements UserContext {
     ctx.logger()
         .info(
             LoggingCategory.WHITELIST,
-            LoggingEntry.from(event.getUser(), Map.of("Added user", event.getTarget().getName())),
+            LoggingEntry.from(event.getUser(), Map.of("Removed user", event.getTarget().getName())),
             guildId);
   }
 }
