@@ -3,6 +3,7 @@ package dev.xjade.tavern.maid.utilities.generators.database;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import dev.xjade.tavern.maid.utilities.generators.Generator;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -42,6 +43,8 @@ public class JooqConfigGenerator {
                 config.getString("password"));
 
     // Write the generated config to a file
+    File f = new File("config/generated-jooq-config.xml");
+    if (f.exists()) f.delete();
     Files.write(Paths.get("config/generated-jooq-config.xml"), xmlConfig.getBytes());
     System.out.println("jOOQ config generated: config/generated-jooq-config.xml");
   }

@@ -3,6 +3,7 @@ package dev.xjade.tavern.maid.utilities.generators.database;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import dev.xjade.tavern.maid.utilities.generators.Generator;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -28,6 +29,8 @@ public class LiquibaseConfigGenerator {
                 config.getString("password"));
 
     // Write the generated config to a file
+    File f = new File("config/generated-liquibase.properties");
+    if (f.exists()) f.delete();
     Files.write(Paths.get("config/generated-liquibase.properties"), liquibaseConfig.getBytes());
     System.out.println("Liquibase config generated: config/generated-liquibase.properties");
   }
