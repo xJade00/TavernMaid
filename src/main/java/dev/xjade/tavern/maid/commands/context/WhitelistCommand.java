@@ -31,10 +31,6 @@ public class WhitelistCommand implements UserContext {
   @Override
   public void handle(UserContextInteractionEvent event, ReplyCallbackAction reply) {
     final long guildId = event.getGuild().getIdLong();
-    ctx.logger()
-        .debug(
-            "WhitelistCommand used to whitelist %s. Executed by %s.",
-            guildId, event.getTarget().getIdLong(), event.getUser().getIdLong());
 
     if (ctx.botConfig().owners().contains(event.getUser().getIdLong())) {
       ctx.logger().debug("WhitelistCommand tried to whitelist a hardcoded owner.", guildId);

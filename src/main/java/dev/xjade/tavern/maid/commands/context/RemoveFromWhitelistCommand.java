@@ -31,10 +31,6 @@ public class RemoveFromWhitelistCommand implements UserContext {
   @Override
   public void handle(UserContextInteractionEvent event, ReplyCallbackAction reply) {
     final long guildId = event.getGuild().getIdLong();
-    ctx.logger()
-        .debug(
-            "RemoveFromWhitelistCommand used to de-whitelist %s. Executed by %s.",
-            guildId, event.getTarget().getIdLong(), event.getUser().getIdLong());
 
     if (ctx.botConfig().owners().contains(event.getUser().getIdLong())) {
       ctx.logger()

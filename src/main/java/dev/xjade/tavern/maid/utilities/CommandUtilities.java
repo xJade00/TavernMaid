@@ -1,5 +1,6 @@
 package dev.xjade.tavern.maid.utilities;
 
+import dev.xjade.tavern.maid.commands.ButtonCommand;
 import dev.xjade.tavern.maid.commands.CommandContext;
 import dev.xjade.tavern.maid.commands.CommandDiscovery;
 import dev.xjade.tavern.maid.commands.CommandInfo;
@@ -42,8 +43,10 @@ public class CommandUtilities {
           throw new RuntimeException("CommandInfo must be present on all commands");
         }
 
+        ButtonCommand buttonCommand = clazz.getAnnotation(ButtonCommand.class);
+
         // Add discovered command
-        discoveredCommands.add(new CommandDiscovery(commandInstance, commandInfo));
+        discoveredCommands.add(new CommandDiscovery(commandInstance, commandInfo, buttonCommand));
         System.out.println("Discovered command: " + commandInfo.name());
 
       } catch (Exception e) {
@@ -54,8 +57,8 @@ public class CommandUtilities {
     return discoveredCommands;
   }
 
-  public static List<CommandInfo> discoverAllCommandInfo() {
-    List<CommandInfo> commandInfos = new ArrayList<>();
+  public static <T extends Annotation> List<T> discoverAll(Class<T> clazzToFind) {
+    List<T> commandInfos = new ArrayList<>();
 
     // Scan the classpath for all classes annotated with @CommandInfo
     Reflections reflections =
@@ -64,10 +67,10 @@ public class CommandUtilities {
                 .setUrls(ClasspathHelper.forJavaClassPath())
                 .setScanners(Scanners.TypesAnnotated));
 
-    Set<Class<?>> commandClasses = reflections.getTypesAnnotatedWith(CommandInfo.class);
+    Set<Class<?>> commandClasses = reflections.getTypesAnnotatedWith(clazzToFind);
 
     for (Class<?> clazz : commandClasses) {
-      CommandInfo commandInfo = clazz.getAnnotation(CommandInfo.class);
+      T commandInfo = clazz.getAnnotation(clazzToFind);
       if (commandInfo != null) {
         commandInfos.add(commandInfo);
       }

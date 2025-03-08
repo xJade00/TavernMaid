@@ -1,6 +1,6 @@
 package dev.xjade.tavern.maid;
 
-import dev.xjade.tavern.maid.commands.context.ContextManager;
+import dev.xjade.tavern.maid.commands.CommandManager;
 import dev.xjade.tavern.maid.config.BotConfig;
 import dev.xjade.tavern.maid.events.GuildEvents;
 import dev.xjade.tavern.maid.logging.Logger;
@@ -14,13 +14,13 @@ public class Bot {
   private JDA jda;
   @Inject private BotConfig config;
   @Inject private Logger logger;
-  @Inject private ContextManager contextManager;
+  @Inject private CommandManager commandManager;
   @Inject private GuildEvents guildEvents;
 
   public void start() throws InterruptedException {
     jda =
         JDABuilder.createDefault(config.token())
-            .addEventListeners(contextManager, guildEvents)
+            .addEventListeners(commandManager, guildEvents)
             .build();
     jda.awaitReady();
   }

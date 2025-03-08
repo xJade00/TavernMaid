@@ -22,7 +22,7 @@ public class GuildEvents extends ListenerAdapter {
 
   @PostConstruct
   public void init() {
-    commandInfo = CommandUtilities.discoverAllCommandInfo();
+    commandInfo = CommandUtilities.discoverAll(CommandInfo.class);
   }
 
   @Override

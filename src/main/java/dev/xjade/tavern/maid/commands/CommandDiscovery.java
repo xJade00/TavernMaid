@@ -1,3 +1,3 @@
 package dev.xjade.tavern.maid.commands;
 
-public record CommandDiscovery(Object instance, CommandInfo info) {}
+public record CommandDiscovery(Object instance, CommandInfo info, ButtonCommand buttonCommand) {}

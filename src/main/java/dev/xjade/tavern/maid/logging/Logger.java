@@ -13,6 +13,7 @@ import dev.xjade.tavern.maid.database.models.OverrideLoggingLevelModel;
 import dev.xjade.tavern.maid.utilities.DebugEncoder;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
+import java.awt.*;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,6 +27,9 @@ import org.jooq.DSLContext;
 
 @Singleton
 public class Logger {
+
+  // #249999
+  public static int AQUA = 2398617;
 
   @Inject private BotConfig botConfig;
   @Inject private LoggingConfig loggingConfig;
@@ -128,11 +132,9 @@ public class Logger {
     builder.setDescription(embedDescription.toString());
     builder.setTimestamp(Instant.now());
     if (requested == Level.CRITICAL) {
-      // Red
-      builder.setColor(16711680);
+      builder.setColor(Color.RED);
     } else {
-      // #249999
-      builder.setColor(2398617);
+      builder.setColor(AQUA);
     }
 
     if (requested == Level.CRITICAL || requested == Level.ERROR) {
