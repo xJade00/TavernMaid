@@ -2,6 +2,7 @@ package dev.xjade.tavern.maid.commands;
 
 import dev.xjade.tavern.maid.commands.button.ButtonState;
 import dev.xjade.tavern.maid.commands.button.ButtonStateHolder;
+import dev.xjade.tavern.maid.commands.button.HasButton;
 import dev.xjade.tavern.maid.commands.context.ContextCommand;
 import dev.xjade.tavern.maid.commands.context.UserContext;
 import dev.xjade.tavern.maid.logging.Logger;

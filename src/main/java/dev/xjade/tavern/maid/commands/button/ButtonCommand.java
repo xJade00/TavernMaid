@@ -1,4 +1,4 @@
-package dev.xjade.tavern.maid.commands;
+package dev.xjade.tavern.maid.commands.button;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

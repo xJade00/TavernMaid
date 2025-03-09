@@ -1,6 +1,6 @@
 package dev.xjade.tavern.maid.utilities;
 
-import dev.xjade.tavern.maid.commands.ButtonCommand;
+import dev.xjade.tavern.maid.commands.button.ButtonCommand;
 import dev.xjade.tavern.maid.commands.CommandContext;
 import dev.xjade.tavern.maid.commands.CommandDiscovery;
 import dev.xjade.tavern.maid.commands.CommandInfo;

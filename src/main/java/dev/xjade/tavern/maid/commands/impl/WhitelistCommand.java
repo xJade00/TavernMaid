@@ -1,4 +1,4 @@
-package dev.xjade.tavern.maid.commands.context;
+package dev.xjade.tavern.maid.commands.impl;
 
 import static dev.xjade.tavern.generated.jooq.Tables.CONFIG_OVERRIDES;
 import static dev.xjade.tavern.maid.database.ConfigOverrideKeys.WHITELIST;
@@ -7,6 +7,8 @@ import dev.xjade.tavern.generated.jooq.tables.records.ConfigOverridesRecord;
 import dev.xjade.tavern.maid.commands.CommandContext;
 import dev.xjade.tavern.maid.commands.CommandInfo;
 import dev.xjade.tavern.maid.commands.Permission;
+import dev.xjade.tavern.maid.commands.context.ContextCommand;
+import dev.xjade.tavern.maid.commands.context.UserContext;
 import dev.xjade.tavern.maid.database.JsonbConverter;
 import dev.xjade.tavern.maid.database.models.WhitelistModel;
 import dev.xjade.tavern.maid.logging.LoggingCategory;

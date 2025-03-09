@@ -1,6 +1,5 @@
-package dev.xjade.tavern.maid.commands;
+package dev.xjade.tavern.maid.commands.button;
 
-import dev.xjade.tavern.maid.commands.button.ButtonState;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.requests.restaction.interactions.ReplyCallbackAction;
 
