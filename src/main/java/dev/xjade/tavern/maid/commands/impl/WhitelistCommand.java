@@ -23,7 +23,7 @@ import net.dv8tion.jda.api.requests.restaction.interactions.ReplyCallbackAction;
 @ContextCommand
 @CommandInfo(
     type = Command.Type.USER,
-    permission = Permission.OWNER,
+    permission = Permission.KEY,
     name = "Whitelist User to Bot",
     description = "Whitelists a user to use the bot that is outside of the normal role.")
 public class WhitelistCommand implements UserContext {

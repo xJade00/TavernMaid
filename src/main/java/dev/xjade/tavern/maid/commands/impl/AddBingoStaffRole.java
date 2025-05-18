@@ -27,7 +27,7 @@ import net.dv8tion.jda.api.requests.restaction.interactions.ReplyCallbackAction;
 @ButtonCommand(prefix = "bingo-add-role-")
 @CommandInfo(
     type = Command.Type.USER,
-    permission = Permission.OWNER,
+    permission = Permission.KEY,
     name = "Add bingo role",
     description = "Adds a special bingo role")
 public class AddBingoStaffRole implements UserContext, HasButton {
@@ -55,6 +55,7 @@ public class AddBingoStaffRole implements UserContext, HasButton {
     builder.setDescription("Assigning " + event.getTarget().getName() + " a bingo role.");
     builder.setTimestamp(Instant.now());
     reply
+        .setEphemeral(true)
         .setEmbeds(builder.build())
         .addActionRow(
             Button.success(STAFF + id, "Staff"),

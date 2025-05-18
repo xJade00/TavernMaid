@@ -23,7 +23,7 @@ import net.dv8tion.jda.api.requests.restaction.interactions.ReplyCallbackAction;
 @ContextCommand
 @CommandInfo(
     type = Command.Type.USER,
-    permission = Permission.OWNER,
+    permission = Permission.KEY,
     name = "Remove user from bot whitelist",
     description = "Removes a user from the whitelist.")
 public class RemoveFromWhitelistCommand implements UserContext {

@@ -1,4 +1,4 @@
-package dev.xjade.tavern.maid.commands.button;
+package dev.xjade.tavern.maid.commands.slash;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,9 +6,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface ButtonCommand {
-  String prefix();
+@Target(ElementType.PARAMETER)
+public @interface Option {
+  String name();
 
-  boolean permanent() default false;
+  String description() default "";
+
+  boolean required() default false;
 }

@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.RecordComponent;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Generator
@@ -91,13 +92,24 @@ public class ConfigGenerator {
 
   private static String formatValue(Object value) {
     if (value instanceof String) {
-      return "\"" + value + "\""; // Wrap strings in quotes
+      return "\"" + value + "\"";
     }
-    if (value instanceof List<?>) {
-      return value.toString().replace("[", "[").replace("]", "]"); // Ensure proper list format
+    if (value instanceof List<?> list) {
+      return list.toString(); // assumes primitives, you could improve this for nested objects
     }
-    return value.toString(); // Default case
+    if (value instanceof Map<?, ?> map) {
+      StringBuilder sb = new StringBuilder("{\n");
+      for (Map.Entry<?, ?> entry : map.entrySet()) {
+        Object k = entry.getKey();
+        Object v = entry.getValue();
+        sb.append("  ").append(k).append(" = ").append(formatValue(v)).append("\n");
+      }
+      sb.append("}");
+      return sb.toString();
+    }
+    return value.toString();
   }
+
 
   private static String getAnnotationComment(Class<?> recordClass, String fieldName) {
     try {
@@ -116,6 +128,7 @@ public class ConfigGenerator {
     if (type == double.class || type == Double.class) return 0.0;
     if (type == boolean.class || type == Boolean.class) return false;
     if (List.class.isAssignableFrom(type)) return List.of();
+    if (Map.class.isAssignableFrom(type)) return Map.of();
     return "unknown";
   }
 

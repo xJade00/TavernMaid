@@ -28,6 +28,14 @@
             </exclusions>
         </dependency>
 
+        <!-- Http (1) -->
+        <dependency>
+            <groupId>com.github.kevinsawicki</groupId>
+            <artifactId>http-request</artifactId>
+            <version>6.0</version>
+        </dependency>
+
+
         <!-- Dependency Injection (2) -->
         <dependency>
             <groupId>jakarta.enterprise</groupId>

@@ -1,14 +1,15 @@
-package dev.xjade.tavern.maid.commands.button;
+package dev.xjade.tavern.maid.commands.slash;
 
+import dev.xjade.tavern.maid.commands.Permission;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface ButtonCommand {
-  String prefix();
+@Target(ElementType.METHOD)
+public @interface SubCommand {
+  String name();
 
-  boolean permanent() default false;
+  Permission permission();
 }

@@ -9,6 +9,8 @@ import dev.xjade.tavern.maid.config.LoggingConfig;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import java.io.File;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /** Providers. Will split if need be. */
 @ApplicationScoped
@@ -25,11 +27,17 @@ public class GenericProviders {
   @Produces
   public BotConfig loadBotConfig() {
     Config config = loadConfig("BotConfig");
+    Map<String, Long> importantIds =
+        config.getConfig("ids").entrySet().stream()
+            .collect(
+                Collectors.toMap(
+                    Map.Entry::getKey, e -> config.getConfig("ids").getLong(e.getKey())));
     return new BotConfig(
         config.getString("token"),
         config.getLongList("owners"),
         config.getLong("devServer"),
-        config.getLong("dev"));
+        config.getLong("dev"),
+        importantIds);
   }
 
   @Produces

@@ -13,7 +13,7 @@ public @interface CommandInfo {
 
   String name();
 
-  Permission permission();
+  Permission permission() default Permission.ANY;
 
-  Command.Type type();
+  Command.Type type() default Command.Type.SLASH;
 }
